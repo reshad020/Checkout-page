@@ -1,0 +1,21 @@
+.header{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+    margin-top: 20px;
+}
+.menu-items{
+    text-decoration: none;
+    margin-right: 30px;
+    font-weight: 500;
+}
+.title-text{
+    color:#ffe70f;
+    font-weight: 500;
+}
+.divider{
+    border:1px solid rgb(240, 236, 236);
+    width:85%;
+    margin-top: 25px;
+    
+}
