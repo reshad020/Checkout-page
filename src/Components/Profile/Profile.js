@@ -8,7 +8,7 @@ const Profile = () => {
     const {user,loading} = useFirebase();
     const {email} = user;
     const [userData,setUserData] = useState({});
-    const url = `http://localhost:5000/users/${email}`
+    const url = `https://enigmatic-beach-68956.herokuapp.com/users/${email}`
     console.log(url)
     useEffect( () => {
         

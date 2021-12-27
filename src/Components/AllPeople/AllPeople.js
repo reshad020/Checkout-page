@@ -7,7 +7,7 @@ const AllPeople = () => {
     
     const [users,setUsers] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:5000/users")
+        fetch("https://enigmatic-beach-68956.herokuapp.com/users")
             .then(res => res.json())
             .then(data =>{
                 setUsers(data);

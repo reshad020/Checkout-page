@@ -22,7 +22,7 @@ const useFirebase = () =>{
             console.log(user)
             // ...
             
-            axios.post('http://localhost:5000/users',userData)
+            axios.post('https://enigmatic-beach-68956.herokuapp.com/users',userData)
             .then(res =>{
                 alert("added successfully");
             });
