@@ -1,43 +1,149 @@
-import SearchIcon from '@mui/icons-material/Search';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import React from 'react';
-import './Header.css';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import { NavLink, useNavigate } from 'react-router-dom';
 import useFirebase from '../useHooks/useFirebase';
-import { Avatar } from '@mui/material';
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Header = () => {
-    const {user} = useFirebase();
+    const {user,logOut} = useFirebase();
+    const history = useNavigate();
+
+    const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
     return (
-        <>
-           <header className='header'>
+        <AppBar position="static" sx={{backgroundColor:'black'}}>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+          >
+            My SocialMedia App         </Typography>
 
-               <div style={{display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                   <ShoppingBagOutlinedIcon sx={{mr:2}}/><span className='title-text'>E-</span>Shop
-               </div>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              
+                <MenuItem onClick={handleCloseNavMenu} >
+                  <Typography textAlign="center">My Profile</Typography>
+                </MenuItem>
+                <MenuItem  onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">All people</Typography>
+                </MenuItem>
+                <MenuItem  onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">My Friends</Typography>
+                </MenuItem>
+              
+            </Menu>
+          </Box>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+          >
+            My SocialMedia App
+          </Typography>
+          {
+            user.email?<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            
+            <NavLink to="/profile" style={{textDecoration:'none'}}>
+              <Button
+                  
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2,ml:'250px', color: 'white', display: 'block' }}
+              >
+                  My profile
+              </Button>
+            </NavLink>
+            <NavLink to="/allpeople" style={{textDecoration:'none'}}>
+              <Button
+                  
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2,ml:'50px', color: 'white', display: 'block' }}
+              >
+                  All people
+              </Button>
+            </NavLink>
+           <NavLink to="/myfriends" style={{textDecoration:'none'}}>
+              <Button
+                  
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2,ml:'50px', color: 'white', display: 'block' }}
+              >
+                  My Friends
+              </Button>
+           </NavLink>
+           
+            <Button onClick={() => logOut(history)}>Logout</Button>
+            </Box>
 
-               <div >
-                   <a className='menu-items'>Men</a>
-                   <a className='menu-items' >Women</a>
-                   <a className='menu-items'>Kids</a>
-               </div>
+               :<Button>Login</Button>
 
-               <div >
-                   <a className='menu-items'><SearchIcon/></a>
-                   <a  className='menu-items'><ShoppingCartOutlinedIcon/></a>
-                   {
-                       user.email?
-                       <Avatar className="menu-items" src={user.photoURL} sx={{width:'15',height:'15',display:'inline-block'}}></Avatar>
-                       :
-                       <a className='menu-items'><PermIdentityIcon/></a>
-                   }
-                   
-               </div>
-               
-           </header>
-           <hr className='divider'></hr>
-        </>
+           
+          
+        
+          }
+
+          
+        </Toolbar>
+      </Container>
+    </AppBar>
     );
 };
 
