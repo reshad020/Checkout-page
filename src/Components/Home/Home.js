@@ -8,13 +8,10 @@ const Home = () => {
     const {user} = useFirebase();
     return (
         <div>
-           
-            {
-                user.email?
+                
                 <Profile></Profile>
-                :
-                <Login></Login>
-            }
+             
+            
             
         </div>
     );

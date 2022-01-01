@@ -1,5 +1,5 @@
 import axios from "axios";
-import { signInWithEmailAndPassword,getAuth,createUserWithEmailAndPassword,onAuthStateChanged,signOut } from "firebase/auth";
+import { signInWithEmailAndPassword,GoogleAuthProvider, signInWithPopup, getAuth,createUserWithEmailAndPassword,onAuthStateChanged,signOut } from "firebase/auth";
 import { useEffect } from "react";
 import { useState } from "react";
 import initializeFirebase from "../Firebase/firebase.init";
@@ -12,6 +12,32 @@ const useFirebase = () =>{
    
     
     const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+
+    const googleSignIn = () =>{
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                
+                // ...
+            }).catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                
+                console.log(errorMessage)
+                // The email of the user's account used.
+                const email = error.email;
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+                // ...
+            });
+
+    }
 
     const emailPasswordRegister = (email,password,history,userData) =>{
         setLoading(true)
@@ -22,11 +48,8 @@ const useFirebase = () =>{
             console.log(user)
             // ...
             
-            axios.post('https://enigmatic-beach-68956.herokuapp.com/users',userData)
-            .then(res =>{
-                alert("added successfully");
-            });
-            history('/profile');
+            
+            history('/');
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -37,13 +60,14 @@ const useFirebase = () =>{
         .finally(() => setLoading(false));
     }
 
-        const login = (email,password) =>{
+        const login = (email,password,history) =>{
             setLoading(true)
-            signInWithEmailAndPassword(auth, email, password)
+            signInWithEmailAndPassword(auth, email, password,history)
             .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
             // ...
+            history('/')
             })
             .catch((error) => {
             const errorCode = error.code;
@@ -78,7 +102,8 @@ const useFirebase = () =>{
         login,
         logOut,
         loading,
-        emailPasswordRegister
+        emailPasswordRegister,
+        googleSignIn
     }
 
 }

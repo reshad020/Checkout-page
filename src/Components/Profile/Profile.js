@@ -1,59 +1,37 @@
-import { Avatar, CircularProgress, Paper, Typography } from '@mui/material';
+
+import { Button, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useEffect, useState } from 'react';
-import Header from '../Header/Header';
+import { NavLink } from 'react-router-dom';
+import topBannerImage from '../../images/delivery.png'
 import useFirebase from '../useHooks/useFirebase';
 
 const Profile = () => {
     const {user,loading} = useFirebase();
-    const {email} = user;
-    const [userData,setUserData] = useState({});
-    const url = `https://enigmatic-beach-68956.herokuapp.com/users/${email}`
-    console.log(url)
-    useEffect( () => {
-        
-        fetch(url)
-       .then(res => res.json())
-       .then(data => {
-        
-           setUserData(data)
-        })
-     
-  }, [user,userData]);
-  if(loading){
-    return <CircularProgress/>
-}
-    // const {name,image,address} = userData;
-
-    console.log(email)
-  
-   
+    
+    
     
     return (
-        
-        <>
-         
-                
-        <Header></Header>
-        
-        <Box sx={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',mt:5}}>
-            <Paper sx={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',p:5,backgroundColor:'black'}}>
-                <Avatar
-                alt="Remy Sharp"
-                src={userData?.image}      
-                sx={{ width: 56, height: 56 }}
-                />
-                <Box sx={{my:5,fontSize:'12px',color:'whitesmoke'}}>
-                    <Typography sx={{my:2,fontSize:'14px'}}>Name: {userData?.name}</Typography>
-                    <Typography sx={{my:2,fontSize:'14px'}}>Email: {user?.email}</Typography>
-                    <Typography sx={{my:2,fontSize:'14px'}}>Address: {userData?.address}</Typography>
-                </Box>
-            </Paper>
-        </Box>
-        
-            
+       <>
+            <Box sx={{mt:5}}>
+                <Grid container >
+                    <Grid sm={6} sx={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column',mt:5}}>
+                        <Box >
+                            <Typography sx={{fontSize:'26px',fontWeight:'700'}}>Want to deliver your product?</Typography>
+                            <Typography sx={{fontSize:'26px',fontWeight:'700'}}>No worries</Typography>
+                            <Typography sx={{fontSize:'26px',fontWeight:'700'}}>Just Add your parcel and <br /> We will deliver to its destination.</Typography>
+                        
+                        <NavLink to='/addparcel'>
+                            <Button variant='contained' sx={{width:'170px',mt:2}}>Add Parcel</Button>
+                        </NavLink>
+                        </Box>
+                    </Grid>
 
-        </>
+                    <Grid sm={6} sx={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
+                        <img src={topBannerImage} alt="" style={{width:'100%'}}/>
+                    </Grid>
+                </Grid>
+            </Box>
+       </>
     );
     
 };

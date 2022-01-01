@@ -96,27 +96,7 @@ const Register = () => {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="address"
-                  label="Address"
-                  id="address"
-                  
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="img"
-                  label="ImageLink"
-                  id="img"
-                  
-                />
-              </Grid>
-             
+              
             </Grid>
             <Button
               type="submit"
