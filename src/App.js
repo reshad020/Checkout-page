@@ -12,6 +12,7 @@ import Login from './Components/SignUp/Login';
 import AddParcel from './Components/AddParcel/AddParcel';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import AuthProvider from './Components/AuthProvider/AuthProvider';
+import Dashboard from './Components/Dashboard/Dashboard';
 
 
 function App() {
@@ -29,6 +30,8 @@ function App() {
         <Route path="/login" element={ < Login/>}>
         </Route>
         <Route path="/myparcel" element={ < MyParcel/>}>
+        </Route>
+        <Route path="/dashboard" element={ < Dashboard/> }>
         </Route>
         <Route path="/addparcel" element={ <PrivateRoute>
           < AddParcel/>

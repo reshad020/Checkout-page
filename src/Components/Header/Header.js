@@ -13,8 +13,8 @@ const Header = () => {
    
 
     return (
-        <Box sx={{mb:5}}>
-          <AppBar sx={{p:2,backgroundColor:'cornflowerblue'}}>
+        <Box sx={{}}>
+          <AppBar sx={{p:2,backgroundColor:'teal'}}>
             <Box sx={{display:'flex',justifyContent:'space-between'}}>
                 <NavLink to="/" style={{textDecoration:'none'}}>
                     <Typography sx={{color:'whitesmoke',fontWeight:'600',fontSize:'18px'}}>
